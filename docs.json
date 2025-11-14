@@ -14,12 +14,30 @@
         "tab": "IHK Process",
         "groups": [
           {
-            "group": "Documentation",
+            "group": "Overview",
             "pages": [
-              "ihk/overview",
-              "ihk/user-manual",
-              "ihk/edge-cases",
-              "ihk/field-mapping"
+              "ihk/overview"
+            ]
+          },
+          {
+            "group": "Neueintragungen (New Registrations)",
+            "pages": [
+              "ihk/neueintragungen/overview",
+              "ihk/neueintragungen/user-manual",
+              "ihk/neueintragungen/edge-cases",
+              "ihk/neueintragungen/field-mapping"
+            ]
+          },
+          {
+            "group": "Veränderungen (Changes)",
+            "pages": [
+              "ihk/veraenderungen/overview"
+            ]
+          },
+          {
+            "group": "Löschungen (Deletions)",
+            "pages": [
+              "ihk/loeschungen/overview"
             ]
           }
         ]

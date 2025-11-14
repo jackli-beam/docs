@@ -1,132 +1,193 @@
 ---
-title: "IHK Process Overview"
-description: "Complete guide to processing Handelsregister Neueintragungen in the EVA system"
+title: "IHK Process Documentation"
+description: "Complete guide to processing Handelsregister entries in the EVA system"
 ---
 
 ## Introduction
 
-This documentation covers the complete workflow for processing **Handelsregister Neueintragungen** (new company registrations) in the EVA system for the Hamburg Chamber of Commerce (IHK).
+This documentation covers the complete workflow for processing **Handelsregister** (commercial register) entries in the EVA system for the Hamburg Chamber of Commerce (IHK).
 
 <Note>
-This process handles approximately **140 entries per day** for Hamburg, with new company registrations being the most time-consuming of the three process types.
+**Daily Volume:** Approximately **140 entries per day** for Hamburg with a 50/50 ratio of existing vs. new companies.
 </Note>
 
-## What You'll Learn
+## Three Process Types
 
-<CardGroup cols={2}>
-  <Card title="Daily Workflow" icon="calendar-days" href="/ihk/user-manual">
-    Step-by-step guide for processing entries from PDF to system completion
-  </Card>
-  <Card title="Edge Cases" icon="triangle-exclamation" href="/ihk/edge-cases">
-    Comprehensive coverage of unusual scenarios and troubleshooting
-  </Card>
-  <Card title="Field Mapping" icon="table" href="/ihk/field-mapping">
-    Complete PDF-to-EVA system field mapping reference
-  </Card>
-  <Card title="Best Practices" icon="check-circle" href="/ihk/user-manual#common-mistakes-to-avoid">
-    Common mistakes to avoid and efficiency tips
-  </Card>
-</CardGroup>
-
-## Quick Start
-
-### Prerequisites
-- Access to EVA system
-- Access to Handelsregister PDF meldungen
-- Understanding of German commercial register concepts
-- This documentation
-
-### Process Overview
-
-```mermaid
-graph TD
-    A[Receive PDF] --> B[Search Existing]
-    B --> C{Found?}
-    C -->|Yes ~50%| D[Update Entry]
-    C -->|No ~50%| E[Create New Entry]
-    D --> F[Fill Company Data]
-    E --> F
-    F --> G[Add Directors]
-    G --> H[Add Industry Codes]
-    H --> I[Enter Capital]
-    I --> J[Review & Complete]
-```
-
-### Key Statistics
-
-- **~50% already exist** in system - always search first!
-- **Function codes (24 vs 8)** determine legal authority - critical to get right
-- **Name handling varies** by residence (German vs Foreign rules)
-- Process entries **chronologically** - complete one date before moving to next
-
-## Critical Rules
-
-<Warning>
-**Always search before creating!** Approximately 50% of Neueintragungen already exist in the system as branches or external headquarters.
-</Warning>
+The IHK process consists of three distinct types of entries, each with different complexity and processing requirements:
 
 <CardGroup cols={3}>
-  <Card title="Function Codes" icon="key">
-    Code 24 vs 8 determines legal signing authority
+  <Card title="Neueintragungen" icon="building" color="#16A34A" href="/ihk/neueintragungen/overview">
+    **New Registrations**
+
+    Most complex process type for newly registered companies
   </Card>
-  <Card title="Name Handling" icon="user">
-    Different rules for German vs Foreign residents
+  <Card title="Veränderungen" icon="pen-to-square" color="#F59E0B" href="/ihk/veraenderungen/overview">
+    **Changes**
+
+    Modifications to existing company records
   </Card>
-  <Card title="Registration Date" icon="calendar">
-    Tag der Eintragung used throughout as Beginndatum
+  <Card title="Löschungen" icon="trash" color="#EF4444" href="/ihk/loeschungen/overview">
+    **Deletions**
+
+    Fastest process for company closures
   </Card>
 </CardGroup>
 
-## Document Structure
+## Processing Priority
 
-### 1. User Manual
-Complete step-by-step procedural guide covering:
-- Getting started and daily workflow setup
-- Eight-phase processing guide (Analyze → Complete)
-- Edge cases and troubleshooting
-- Common mistakes and quick reference checklists
+<Warning>
+**Process entries chronologically!** Complete one date before moving to the next to avoid missing complementary entries.
+</Warning>
 
-[View User Manual →](/ihk/user-manual)
+**Recommended Daily Order:**
 
-### 2. Edge Cases Reference
-Comprehensive coverage of 80+ edge cases across 14 phases:
-- PDF document issues
-- Search and identification challenges
-- Company name processing complexities
-- Address validation scenarios
-- Person/director data edge cases
-- Legal representation complexities
-- Compliance and system integration issues
+1. **Abmeldungen/Löschungen first** (Deletions) - Fastest, ~10-15 min each
+2. **Anmeldungen/Neueintragungen second** (New Registrations) - Most complex, ~30-45 min each
+3. **Ummeldungen/Veränderungen last** (Changes) - Medium complexity, ~20-30 min each
 
-[View Edge Cases →](/ihk/edge-cases)
+## Document Flow
 
-### 3. Field Mapping Guide
-Complete reference for PDF-to-EVA field mapping:
-- Section-by-section PDF structure breakdown
-- EVA system field definitions
-- Processing rules and special cases
-- Automation considerations
+```mermaid
+graph LR
+    A[Handelsregister] --> B[Handelskammer Hamburg]
+    B --> C[PDF Delivery]
+    C --> D{Process Type?}
+    D -->|New| E[Neueintragungen]
+    D -->|Change| F[Veränderungen]
+    D -->|Delete| G[Löschungen]
+    E --> H[EVA System]
+    F --> H
+    G --> H
+```
 
-[View Field Mapping →](/ihk/field-mapping)
+## Key Statistics
 
-## Next Steps
+<CardGroup cols={2}>
+  <Card title="Daily Volume" icon="calendar-days">
+    ~140 entries/day for Hamburg
+  </Card>
+  <Card title="Existing vs New" icon="chart-pie">
+    50% already exist in system
+  </Card>
+  <Card title="Search First" icon="magnifying-glass">
+    Always search before creating!
+  </Card>
+  <Card title="Chronological" icon="clock">
+    Process day-by-day in order
+  </Card>
+</CardGroup>
+
+## Process Comparison
+
+| Aspect | Neueintragungen | Veränderungen | Löschungen |
+|--------|----------------|---------------|------------|
+| **Complexity** | ⭐⭐⭐ High | ⭐⭐ Medium | ⭐ Low |
+| **Time** | 30-45 min | 20-30 min | 10-15 min |
+| **Priority** | 2nd | 3rd | 1st |
+| **Search Required** | Yes (~50% exist) | Yes (100% must exist) | Yes (must find) |
+| **New Entry** | Often needed | Rare | Never |
+
+## Common Elements Across All Types
+
+### Universal Rules
+
+<AccordionGroup>
+  <Accordion title="Always Search First">
+    Before any processing, search the system for existing entries by:
+    - Company name (similar search, not exact)
+    - Registration number
+    - Person names and birth dates
+  </Accordion>
+
+  <Accordion title="Chronological Processing">
+    Process entries date-by-date to ensure:
+    - No missing complementary entries
+    - Correct sequencing of changes
+    - Complete cross-references
+  </Accordion>
+
+  <Accordion title="Function Codes">
+    Critical for legal representation:
+    - **Code 24:** Alleinvertretungsbefugnis (sole representation)
+    - **Code 8:** Joint representation
+    - Determines signing authority
+  </Accordion>
+
+  <Accordion title="Name Handling">
+    Rules vary by residence:
+    - **German residents:** First name only in Vorname, others in Schlagwort
+    - **Foreign residents:** All names in Vorname field
+  </Accordion>
+</AccordionGroup>
+
+### System Requirements
+
+- Status must show **"vollständig"** before completion
+- Use **"übernehmen"** not "okay" for each step
+- Final status change to **"bearbeitet"** assigns Identnummer
+
+## Getting Started
 
 <Steps>
-  <Step title="Read the User Manual">
-    Start with the [complete user manual](/ihk/user-manual) to understand the full workflow
+  <Step title="Choose Process Type">
+    Identify whether you're processing Neueintragungen, Veränderungen, or Löschungen
   </Step>
-  <Step title="Reference Edge Cases">
-    Keep the [edge cases guide](/ihk/edge-cases) handy for unusual scenarios
+  <Step title="Start with Deletions">
+    Process Löschungen first as they're fastest and simplest
   </Step>
-  <Step title="Use Field Mapping">
-    Reference the [field mapping guide](/ihk/field-mapping) for specific field questions
+  <Step title="Process New Registrations">
+    Handle Neueintragungen second - most time-consuming
+  </Step>
+  <Step title="Handle Changes Last">
+    Complete Veränderungen last for the day
   </Step>
 </Steps>
 
-## Quick Links
+## Process-Specific Documentation
 
-- [Daily Workflow Setup](/ihk/user-manual#daily-workflow-setup)
-- [Search Process](/ihk/user-manual#phase-2-search-for-existing-entry)
-- [Function Code Determination](/ihk/user-manual#phase-5-enter-beteiligten)
-- [Common Mistakes](/ihk/user-manual#common-mistakes-to-avoid)
-- [Glossary](/ihk/user-manual#appendix-glossary)
+### 🏢 Neueintragungen (New Registrations)
+
+Complete documentation for processing new company registrations:
+
+- [Overview](/ihk/neueintragungen/overview) - Process introduction
+- [User Manual](/ihk/neueintragungen/user-manual) - Step-by-step guide
+- [Edge Cases](/ihk/neueintragungen/edge-cases) - 80+ scenarios
+- [Field Mapping](/ihk/neueintragungen/field-mapping) - PDF to EVA mapping
+
+[Start with Neueintragungen →](/ihk/neueintragungen/overview)
+
+### ✏️ Veränderungen (Changes)
+
+<Info>
+**Documentation in progress**
+
+This section will cover modifications to existing company records.
+</Info>
+
+[View Veränderungen →](/ihk/veraenderungen/overview)
+
+### 🗑️ Löschungen (Deletions)
+
+<Info>
+**Documentation in progress**
+
+This section will cover company deletion and closure processes.
+</Info>
+
+[View Löschungen →](/ihk/loeschungen/overview)
+
+## Quick Reference
+
+### Critical Rules (All Types)
+
+- ⚠️ Always search before creating/updating
+- ⚠️ Process chronologically by date
+- ⚠️ Function codes determine legal authority
+- ⚠️ Name handling varies by residence
+- ⚠️ Status must be "vollständig" before completion
+
+### Support Resources
+
+- [Glossary](/ihk/neueintragungen/user-manual#appendix-glossary)
+- [Common Mistakes](/ihk/neueintragungen/user-manual#common-mistakes-to-avoid)
+- [Search Process](/ihk/neueintragungen/user-manual#phase-2-search-for-existing-entry)
