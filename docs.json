@@ -16,7 +16,10 @@
           {
             "group": "Documentation",
             "pages": [
-              "ihk/overview"
+              "ihk/overview",
+              "ihk/user-manual",
+              "ihk/edge-cases",
+              "ihk/field-mapping"
             ]
           }
         ]
