@@ -1,0 +1,351 @@
+---
+title: "Benutzerhandbuch: Neueintragungen"
+description: "Vollständige Schritt-für-Schritt-Anleitung zur Bearbeitung von Neuregistrierungen im EVA-System"
+---
+
+<Note>
+**Version:** 1.0 | **Aktualisiert:** 2025-11-14
+
+**Tägliche Statistik:** ~140 Einträge/Tag | 30-45 Min pro Eintrag | ~50% existieren bereits im System
+</Note>
+
+## Überblick
+
+Dieses Handbuch bietet eine vollständige Verfahrensanleitung zur Bearbeitung von **Handelsregister-Neueintragungen** im EVA-System der Handelskammer Hamburg.
+
+<Warning>
+**KRITISCHE REGEL:** Immer zuerst suchen! Etwa 50% der Neueintragungen existieren bereits als Betriebsstätten oder externe Hauptsitze.
+</Warning>
+
+## Voraussetzungen
+
+- ✅ Zugang zum EVA-System
+- ✅ Zugang zu Handelsregister-PDF-Meldungen
+- ✅ Verständnis der deutschen Handelsregisterbegriffe
+- ✅ Dieses Handbuch
+
+---
+
+## Täglicher Workflow-Setup
+
+### Schritt 1: Navigation zu Meldungen
+
+1. EVA-System öffnen
+2. Klick auf **"Meldung"** → **"Übersicht"**
+
+### Schritt 2: Filter für Ihre Arbeit
+
+1. Pfeil/Dropdown am unteren Rand anklicken
+2. Auswählen:
+   - **"Handelsregister"**
+   - **"HRB"** und **"HRA"**
+   - **"Anmeldung"**
+3. Filter anwenden
+
+### Schritt 3: Bearbeitungsdatum auswählen
+
+<Warning>
+**Chronologisch** bearbeiten! Ein Datum vollständig abschließen, bevor zum nächsten gewechselt wird, um ergänzende Einträge nicht zu verpassen.
+</Warning>
+
+1. Frühestes unbearbeitetes Datum auswählen
+2. Alle Einträge für diesen Tag anzeigen
+3. Ersten Eintrag öffnen
+
+**Profi-Tipp:** PDF-Viewer während der gesamten Sitzung geöffnet lassen - nicht zwischen Einträgen schließen.
+
+---
+
+## 8-Phasen-Bearbeitungsleitfaden
+
+### Phase 1: PDF analysieren (1-2 Min)
+
+**Wesentliche Prüfungen:**
+- **Abschnitt 1:** Eintragungsnummer (HRB/HRA)
+- **Abschnitt 2:** Firmenname & Standort
+- **Abschnitt 4:** Anzahl der Geschäftsführer
+- **Abschnitt 7:** Registrierungsdatum (Beginndatum)
+
+**Warnsignale:**
+- "Sitzverlegung" → Alte UND neue Namen suchen
+- "Zweigniederlassung" → Zweigstelle, nicht Hauptsitz
+- "eGbR" → Unter HR Sonstiges bearbeiten
+
+### Phase 2: Nach bestehendem Eintrag suchen (3-5 Min) ⚠️ KRITISCH
+
+<Steps>
+  <Step title="Suche konfigurieren">
+    **"Allgemein" → "Suche"** öffnen
+
+    Auswählen: ☑ Firmen ☑ Personen
+
+    Modus: **"Ähnlich suchen"**
+  </Step>
+
+  <Step title="Firmennamen suchen">
+    2-3 aussagekräftige Wörter aus dem Firmennamen eingeben
+
+    ❌ Nicht "GmbH" oder "Verwaltungsgesellschaft" allein suchen
+  </Step>
+
+  <Step title="Ergebnisse analysieren">
+    - **Keine Ergebnisse** → Mit Neuanlage fortfahren
+    - **Betriebsstätte gefunden** → In Hauptsitz umwandeln
+    - **Externer Hauptsitz** → Aktualisieren & umwandeln
+    - **Exakte Übereinstimmung** → Möglicherweise Duplikat, Vorgesetzten konsultieren
+  </Step>
+</Steps>
+
+### Phase 3: Neuen Eintrag erstellen (30 Sek)
+
+Nur wenn Phase 2 KEINE bestehenden Einträge gefunden hat!
+
+1. Rechtsklick → Eintragstyp auswählen:
+   - **Hauptsitz** (90%+ Fälle - Standard GmbH, UG, AG)
+   - **Zweigniederlassung** (nur Zweigstellen)
+   - **GBR** (eGbR-Partnerschaften)
+
+### Phase 4: Firmendaten ausfüllen (2-3 Min)
+
+1. **"Gewerbedaten füllen"** klicken (aber alles überprüfen!)
+2. **Firmierung** exakt aus PDF eingeben
+3. **Alphasort** eingeben (2+ Wörter, verbotene Erstwörter vermeiden)
+4. **Adresse** eingeben (Hamburg-Regeln: Kleinbuchstaben-Suffixe wie "12a")
+5. **PLZ** über Dropdown validieren
+
+<Warning>
+**Alphasort verbotene Erstwörter:**
+❌ Verwaltungsgesellschaft
+❌ Beteiligungsgesellschaft
+❌ Schifffahrtsgesellschaft
+</Warning>
+
+### Phase 5: Beteiligte eingeben (Geschäftsführer) (3-5 Min pro Person)
+
+<Note>
+**Komplexeste Phase** - sorgfältig folgen!
+</Note>
+
+**Schritt 1: Funktionscode bestimmen** 🔑
+
+<CardGroup cols={2}>
+  <Card title="Code 24" icon="user">
+    **Alleinvertretung**
+
+    Einzelner Geschäftsführer ODER jeder handelt allein
+
+    Schlüsselwörter: "vertritt allein"
+  </Card>
+  <Card title="Code 8" icon="users">
+    **Gemeinsame Vertretung**
+
+    Müssen gemeinsam handeln
+
+    Schlüsselwörter: "gemeinschaftlich", "durch zwei"
+  </Card>
+</CardGroup>
+
+**Schritt 2: Suchen & Jeden Geschäftsführer hinzufügen**
+
+1. Suche nach: Nachname + Vorname + Geburtsdatum
+2. Wenn gefunden (Geburtsdatum stimmt überein): Vorhandene Person zuweisen
+3. Wenn nicht gefunden: Neue Person anlegen
+
+**Schritt 3: Namensbehandlungsregeln** ⚠️
+
+<Tabs>
+  <Tab title="Deutsche Einwohner">
+    **Vorname:** NUR erster Vorname
+
+    **Schlagwort:** Zusätzliche Vornamen
+
+    Beispiel: "Hans Peter Müller, Hamburg"
+    - Vorname: "Hans"
+    - Schlagwort: "Peter"
+  </Tab>
+  <Tab title="Ausländische Einwohner">
+    **Vorname:** ALLE Vornamen zusammen
+
+    **Schlagwort:** Leer oder optional
+
+    Beispiel: "Hans Peter Müller, Wien"
+    - Vorname: "Hans Peter"
+  </Tab>
+</Tabs>
+
+**Schritt 4: Daten setzen**
+
+- **Beginndatum:** Tag der Eintragung (Abschnitt 7) - GLEICH für ALLE Geschäftsführer
+
+### Phase 6: Branchenschlüssel eingeben (1-2 Min)
+
+1. Zu **"Branchenschlüssel"** navigieren
+2. PDF Abschnitt 2 "Gegenstand" (Geschäftszweck) analysieren
+3. 1-4 Branchencodes auswählen
+4. Priorität: Hauptgeschäftstätigkeit zuerst
+
+### Phase 7: Kapital eingeben (30 Sek)
+
+**Bei GmbH, UG oder AG:**
+
+- Zu **"Stammkapital"** navigieren
+- Betrag aus PDF Abschnitt 3 kopieren
+- Format: Deutsche Zahlen (25.000,00 EUR)
+
+**Übliche Beträge:**
+- GmbH: 25.000,00 EUR Minimum
+- UG: 1,00 EUR Minimum
+- AG: 50.000,00 EUR Minimum
+
+### Phase 8: Überprüfen & Abschließen (1-2 Min)
+
+**Abschlusscheckliste:**
+
+<Steps>
+  <Step title="Firmendaten">
+    ✅ Firmierung, Alphasort, Adresse vollständig
+  </Step>
+  <Step title="Geschäftsführer">
+    ✅ Alle mit korrektem Funktionscode eingegeben
+
+    ✅ Beginndatum = Tag der Eintragung
+  </Step>
+  <Step title="Branche & Kapital">
+    ✅ Branchenschlüssel (1-4 Codes)
+
+    ✅ Kapitalbetrag (falls zutreffend)
+  </Step>
+  <Step title="Speichern">
+    **"Speichern"** oder **"Fertigstellen"** klicken
+  </Step>
+</Steps>
+
+---
+
+## Häufige Fehler vermeiden
+
+<AccordionGroup>
+  <Accordion title="❌ Suchphase überspringen">
+    **Folge:** Doppelte Einträge, Zeitverschwendung
+
+    **Richtig:** IMMER zuerst suchen - 50% existieren bereits!
+  </Accordion>
+
+  <Accordion title="❌ Auto-Fill vertrauen">
+    **Folge:** Falsche Adressen, falsche Namen
+
+    **Richtig:** JEDES Feld gegen PDF überprüfen
+  </Accordion>
+
+  <Accordion title="❌ Falscher Funktionscode">
+    **Folge:** Rechtliche Vertretungsfehler, Haftungsprobleme
+
+    **Richtig:** Abschnitt 4 sorgfältig lesen, bevor Geschäftsführer eingegeben werden
+  </Accordion>
+
+  <Accordion title="❌ Falsche Namensbehandlung">
+    **Folge:** Dateninkonsistenz, Suchprobleme
+
+    **Richtig:** Wohnsitz zuerst prüfen - Deutsche vs. Ausländische Regeln unterscheiden sich
+  </Accordion>
+
+  <Accordion title="❌ Verbotene Alphasort-Wörter verwenden">
+    **Folge:** System-Freeze, Suchfehler
+
+    **Richtig:** Unterscheidbare Schlüsselwörter verwenden, häufige Begriffe in Position 1 vermeiden
+  </Accordion>
+
+  <Accordion title="❌ Falsches Beginndatum">
+    **Folge:** Zeitachsenfehler, Prüfungsfehler
+
+    **Richtig:** IMMER Tag der Eintragung für alle Geschäftsführer verwenden
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Schnellreferenz-Checklisten
+
+### ✅ Vor Neuanlage
+- [ ] Firmennamen gesucht (ähnlich)
+- [ ] Variationen gesucht bei Sitzverlegung
+- [ ] Nach Betriebsstätte / Externem Hauptsitz gesucht
+- [ ] Bestätigt, dass KEIN bestehender Eintrag vorhanden
+
+### ✅ Firmendaten vollständig
+- [ ] Firmierung exakt aus PDF
+- [ ] Alphasort 2+ Wörter, kein verbotenes Erstwort
+- [ ] Adresse überprüft (Hamburg-Regeln: Kleinbuchstaben-Suffixe)
+- [ ] PLZ über Dropdown validiert
+
+### ✅ Pro Geschäftsführer-Eintrag
+- [ ] Funktionscode bestimmt (24 oder 8)
+- [ ] Person nach Name + Geburtsdatum gesucht
+- [ ] Namen korrekt behandelt (Deutsch vs. Ausländisch)
+- [ ] Beginndatum = Tag der Eintragung
+- [ ] Person in Beteiligten-Liste gespeichert
+
+### ✅ Abschlussprüfung
+- [ ] Alle Geschäftsführer eingegeben (Anzahl stimmt mit PDF überein)
+- [ ] Funktionscodes konsistent
+- [ ] Branchenschlüssel ausgewählt (1-4)
+- [ ] Kapital eingegeben (falls zutreffend)
+- [ ] Alle Objektbaum-Abschnitte vollständig
+- [ ] Eintrag gespeichert
+
+---
+
+## Wann um Hilfe bitten
+
+**🚩 Immer während der Schulung melden:**
+- Sitzverlegung (Umzug)
+- Zweigniederlassung (Zweigstelle)
+- Unternehmensgeschäftsführer (Firma als Geschäftsführer)
+- Betriebsstätte/Externer Hauptsitz gefunden
+- Gelöschte Firma gefunden
+- Fehlende kritische Daten
+- Unklarer Funktionscode
+- Bereits bearbeiteter Eintrag
+- Jeder Fall, der falsch erscheint
+
+---
+
+## Glossar
+
+| Deutsch | Englisch | Hinweise |
+|---------|----------|----------|
+| **Anmeldung** | Registration | Neue Firma |
+| **Beteiligten** | Geschäftsführer/Beteiligte | |
+| **Betriebsstätte** | Zweigstelle | In Hauptsitz umwandeln |
+| **Branchenschlüssel** | Branchencode | 1-4 Codes |
+| **Firmierung** | Firmenname | Rechtlicher Name |
+| **Funktion** | Funktionscode | 24 oder 8 |
+| **Geschäftsführer** | Managing director | |
+| **Hauptsitz** | Hauptsitz | Standard-Eintragstyp |
+| **Neueintragung** | Neuregistrierung | Dieser Prozess |
+| **Sitzverlegung** | HQ-Umzug | Beide Namen suchen |
+| **Stammkapital** | Stammkapital | GmbH/UG/AG |
+| **Tag der Eintragung** | Registrierungsdatum | Als Beginndatum verwenden |
+| **Zweigniederlassung** | Zweigstelle | Anderer Eintragstyp |
+
+---
+
+## Zusätzliche Ressourcen
+
+<CardGroup cols={3}>
+  <Card title="Feldzu Ordnung" icon="table" href="/de/ihk/neueintragungen/field-mapping">
+    PDF zu EVA Feldrreferenz
+  </Card>
+  <Card title="Zurück zur Übersicht" icon="arrow-left" href="/ihk/neueintragungen/overview">
+    Zurück zur Prozessübersicht
+  </Card>
+  <Card title="English Version" icon="language" href="/ihk/neueintragungen/user-manual">
+    Switch to English
+  </Card>
+</CardGroup>
+
+---
+
+**Dokumentversion:** 1.0 | **Datum:** 2025-11-14
+
+Bei Fragen oder Fehlern wenden Sie sich an Ihren Vorgesetzten oder Schulungskoordinator.

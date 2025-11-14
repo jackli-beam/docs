@@ -11,11 +11,12 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "IHK Process",
+        "tab": "IHK Process (EN)",
         "groups": [
           {
             "group": "Overview",
             "pages": [
+              "index",
               "ihk/overview"
             ]
           },
@@ -23,9 +24,18 @@
             "group": "Neueintragungen (New Registrations)",
             "pages": [
               "ihk/neueintragungen/overview",
-              "ihk/neueintragungen/user-manual",
-              "ihk/neueintragungen/edge-cases",
-              "ihk/neueintragungen/field-mapping"
+              {
+                "group": "Documentation (EN/DE/ZH)",
+                "pages": [
+                  "ihk/neueintragungen/user-manual",
+                  "de/ihk/neueintragungen/user-manual",
+                  "zh/ihk/neueintragungen/user-manual",
+                  "ihk/neueintragungen/edge-cases",
+                  "ihk/neueintragungen/field-mapping",
+                  "de/ihk/neueintragungen/field-mapping",
+                  "zh/ihk/neueintragungen/field-mapping"
+                ]
+              }
             ]
           },
           {
@@ -38,6 +48,48 @@
             "group": "Löschungen (Deletions)",
             "pages": [
               "ihk/loeschungen/overview"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "IHK Prozess (DE)",
+        "groups": [
+          {
+            "group": "Übersicht",
+            "pages": [
+              "de/index",
+              "ihk/overview"
+            ]
+          },
+          {
+            "group": "Neueintragungen",
+            "pages": [
+              "ihk/neueintragungen/overview",
+              "de/ihk/neueintragungen/user-manual",
+              "de/ihk/neueintragungen/field-mapping",
+              "ihk/neueintragungen/edge-cases"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "IHK 流程 (ZH)",
+        "groups": [
+          {
+            "group": "概述",
+            "pages": [
+              "zh/index",
+              "ihk/overview"
+            ]
+          },
+          {
+            "group": "新注册",
+            "pages": [
+              "ihk/neueintragungen/overview",
+              "zh/ihk/neueintragungen/user-manual",
+              "zh/ihk/neueintragungen/field-mapping",
+              "ihk/neueintragungen/edge-cases"
             ]
           }
         ]

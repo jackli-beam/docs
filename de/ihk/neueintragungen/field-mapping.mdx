@@ -1,0 +1,207 @@
+---
+title: "Feldzuordnungsleitfaden"
+description: "Vollständige PDF-zu-EVA-System Feldzuordnungsreferenz für Neueintragungen"
+---
+
+## Überblick
+
+Dieser Leitfaden bietet eine vollständige Referenz zur Zuordnung von Daten aus Handelsregister-PDF-Dokumenten zu EVA-Systemfeldern.
+
+<Note>
+**Zweck:** Schnellreferenz für feldweise Dateneingabe
+
+**Version:** 1.0 | **Aktualisiert:** 2025-11-14
+</Note>
+
+---
+
+## PDF-Struktur
+
+Handelsregister-Neueintragung PDFs folgen einer Standardstruktur:
+
+<CardGroup cols={4}>
+  <Card title="Abschnitt 1" icon="1">
+    Eintragungsnummer
+
+    HRB/HRA Nummer
+  </Card>
+  <Card title="Abschnitt 2" icon="2">
+    Firmendetails
+
+    Name, Adresse, Geschäft
+  </Card>
+  <Card title="Abschnitte 3-4" icon="3">
+    Kapital & Geschäftsführer
+
+    Finanzen + Management
+  </Card>
+  <Card title="Abschnitte 6-7" icon="7">
+    Rechtsform & Datum
+
+    Typ + Registrierungsdatum
+  </Card>
+</CardGroup>
+
+---
+
+## Vollständige Feldzuordnung
+
+### Abschnitt 2: Firma (Firmenname)
+
+**PDF-Feld:** "Firma: [Firmenname]"
+
+**EVA-Felder:**
+
+| EVA-Feld | Inhalt | Regeln |
+|----------|--------|--------|
+| **Firmierung** | Vollständiger rechtlicher Name | EXAKT aus PDF kopieren, Rechtsform einbeziehen |
+| **Kurzfirmierung** | Kurzname | Einfach: gleich wie vollständig. Komplex: abgekürzt |
+| **Alphasort** | Suchschlüsselwörter | 2+ Wörter, keine verbotenen Erstwörter |
+| **Schlagwort** | Zusätzliche Schlüsselwörter | Ähnlich wie Alphasort |
+
+<Warning>
+**Alphasort verbotene Erstwörter:**
+- ❌ Verwaltungsgesellschaft
+- ❌ Beteiligungsgesellschaft
+- ❌ Schifffahrtsgesellschaft
+
+Kann in Position 2+ verwendet werden
+</Warning>
+
+---
+
+### Abschnitt 2: Sitz (Adresse)
+
+**PDF-Feld:** "Sitz: [Adresse]"
+
+**EVA-Felder:**
+
+| EVA-Feld | Inhalt | Hamburg-Regeln |
+|----------|--------|----------------|
+| **Straße** | Straßenname | "Straße" → "Str." |
+| **Hausnummer** | Hausnummer | Buchstaben-Suffixe KLEINGESCHRIEBEN: "12a" |
+| **PLZ** | Postleitzahl | Aus Dropdown auswählen (validiert) |
+| **Ort** | Stadt | Normalerweise "Hamburg" |
+| **Land** | Land | Normalerweise "Deutschland" |
+
+**Beispiele:**
+```
+PDF: "Hauptstraße 12A, 20095 Hamburg"
+→ Straße: "Hauptstr."
+→ Hausnummer: "12a"
+→ PLZ: "20095" (aus Dropdown auswählen)
+→ Ort: "Hamburg"
+→ Land: "Deutschland"
+```
+
+---
+
+### Abschnitt 4: Geschäftsführer
+
+**PDF-Feld:** "Geschäftsführer: [Name, Geb.datum, Adresse]"
+
+**EVA-Abschnitt:** **Beteiligten** (mehrere Unterfelder pro Person)
+
+#### Namensbehandlungsregeln (KRITISCH!):
+
+<Tabs>
+  <Tab title="Deutsche Einwohner">
+    **Wenn Wohnort = Deutsche Stadt:**
+
+    **Vorname:** NUR erster Vorname
+
+    **Schlagwort:** ALLE zusätzlichen Vornamen
+
+    **Beispiel:**
+    ```
+    PDF: "Hans Peter Wilhelm Müller, wohnhaft in Hamburg"
+    → Vorname: "Hans"
+    → Schlagwort: "Peter Wilhelm"
+    ```
+  </Tab>
+  <Tab title="Ausländische Einwohner">
+    **Wenn Wohnort = Ausländische Stadt:**
+
+    **Vorname:** ALLE Vornamen zusammen
+
+    **Schlagwort:** Leer oder optional
+
+    **Beispiel:**
+    ```
+    PDF: "Hans Peter Wilhelm Müller, wohnhaft in Wien, Österreich"
+    → Vorname: "Hans Peter Wilhelm"
+    → Schlagwort: (leer)
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+### Abschnitt 7: Tag der Eintragung
+
+**PDF-Feld:** "Tag der Eintragung: TT.MM.JJJJ"
+
+**EVA-Verwendung:** **KRITISCH - Überall verwendet!**
+
+Dieses Datum wird zu:
+- **Beginndatum** für ALLE Geschäftsführer
+- Startdatum für Firmenoperationen
+- Referenzdatum im gesamten System
+
+<Warning>
+**Verwenden Sie das GLEICHE Datum (Tag der Eintragung) für:**
+- Alle Beteiligten (Geschäftsführer) Beginndatum
+- Alle anderen Datumsfelder, die ein Startdatum erfordern
+- **NIEMALS heutiges Datum oder unterschiedliche Daten pro Geschäftsführer verwenden!**
+</Warning>
+
+---
+
+## Schnellreferenz-Matrix
+
+| PDF-Position | PDF-Feld | EVA-Abschnitt | EVA-Feld(er) | Sonderregeln |
+|--------------|----------|---------------|--------------|--------------|
+| **Abschnitt 2** | Firma | Stammdaten | Firmierung, Kurzfirmierung, Alphasort | Exakte Kopie, 2+ Wort Alphasort |
+| **Abschnitt 2** | Sitz | Anschrift | Straße, Hausnummer, PLZ, Ort, Land | Hamburg: Kleinbuchstaben-Suffixe |
+| **Abschnitt 3** | Stammkapital | Kapital | Stammkapital | Deutsches Zahlenformat |
+| **Abschnitt 4** | Geschäftsführer | Beteiligten | Nachname, Vorname, Schlagwort, Geb.datum, Funktion, Beginndatum | Namensregeln variieren nach Wohnsitz |
+| **Abschnitt 7** | Tag der Eintragung | Beteiligten | Beginndatum (alle Geschäftsführer) | GLEICHES Datum für alle |
+
+---
+
+## Glossar
+
+| Deutscher Begriff | Englisch | EVA-Feld / Abschnitt |
+|-------------------|----------|----------------------|
+| **Alphasort** | Suchschlüsselwörter | Stammdaten |
+| **Anschrift** | Adresse | Adressabschnitt |
+| **Beginndatum** | Startdatum | Beteiligten pro Person |
+| **Beteiligten** | Geschäftsführer/Beteiligte | Geschäftsführerabschnitt |
+| **Branchenschlüssel** | Branchencode | Branchenabschnitt |
+| **Firmierung** | Rechtlicher Firmenname | Stammdaten |
+| **Funktion** | Funktionscode | Beteiligten pro Person |
+| **Geburtsdatum** | Geburtsdatum | Beteiligten pro Person |
+| **Geschäftsführer** | Geschäftsführer | Beteiligten |
+| **Hauptsitz** | Hauptsitz | Eintragstyp |
+| **Stammkapital** | Stammkapital | Kapitalabschnitt |
+| **Tag der Eintragung** | Registrierungsdatum | → Beginndatum |
+| **Vorname** | Vorname(n) | Beteiligten pro Person |
+| **Zweigniederlassung** | Zweigstelle | Eintragstyp |
+
+---
+
+<CardGroup cols={3}>
+  <Card title="Benutzerhandbuch" icon="book" href="/de/ihk/neueintragungen/user-manual">
+    Schritt-für-Schritt-Anleitung
+  </Card>
+  <Card title="Zurück" icon="arrow-left" href="/ihk/neueintragungen/overview">
+    Zur Prozessübersicht
+  </Card>
+  <Card title="English" icon="language" href="/ihk/neueintragungen/field-mapping">
+    Switch to English
+  </Card>
+</CardGroup>
+
+---
+
+**Dokumentversion:** 1.0 | **Datum:** 2025-11-14

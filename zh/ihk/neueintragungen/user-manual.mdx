@@ -1,0 +1,351 @@
+---
+title: "用户手册：新注册"
+description: "在EVA系统中处理公司新注册的完整分步指南"
+---
+
+<Note>
+**版本：** 1.0 | **更新日期：** 2025-11-14
+
+**每日统计：** 约140个条目/天 | 每个条目30-45分钟 | 约50%已存在于系统中
+</Note>
+
+## 概述
+
+本手册为汉堡商会EVA系统中处理**商业登记新注册**（Handelsregister Neueintragungen）提供完整的程序指导。
+
+<Warning>
+**关键规则：** 始终先搜索！大约50%的新注册已作为分支机构或外部总部存在。
+</Warning>
+
+## 前提条件
+
+- ✅ 访问EVA系统
+- ✅ 访问商业登记PDF通知
+- ✅ 理解德国商业登记概念
+- ✅ 本手册
+
+---
+
+## 日常工作流程设置
+
+### 步骤1：导航到通知
+
+1. 打开EVA系统
+2. 点击 **"Meldung"** → **"Übersicht"**
+
+### 步骤2：筛选您的工作
+
+1. 点击底部的箭头/下拉菜单
+2. 选择：
+   - **"Handelsregister"**
+   - **"HRB"** 和 **"HRA"**
+   - **"Anmeldung"**
+3. 应用筛选器
+
+### 步骤3：选择处理日期
+
+<Warning>
+**按时间顺序**处理！在移至下一个日期之前完成一个日期，以避免遗漏补充条目。
+</Warning>
+
+1. 选择最早未处理的日期
+2. 查看该天的所有条目
+3. 打开第一个条目
+
+**专业提示：** 在整个过程中保持PDF查看器打开——不要在条目之间关闭。
+
+---
+
+## 8阶段处理指南
+
+### 阶段1：分析PDF（1-2分钟）
+
+**必要检查：**
+- **第1节：** 注册号（HRB/HRA）
+- **第2节：** 公司名称和地址
+- **第4节：** 董事人数
+- **第7节：** 注册日期（Beginndatum）
+
+**警告信号：**
+- "Sitzverlegung" → 搜索旧名称和新名称
+- "Zweigniederlassung" → 分支机构，不是总部
+- "eGbR" → 在HR Sonstiges下处理
+
+### 阶段2：搜索现有条目（3-5分钟）⚠️ 关键
+
+<Steps>
+  <Step title="配置搜索">
+    打开 **"Allgemein" → "Suche"**
+
+    选择：☑ Firmen ☑ Personen
+
+    模式：**"Ähnlich suchen"**
+  </Step>
+
+  <Step title="搜索公司名称">
+    从公司名称中输入2-3个有意义的词
+
+    ❌ 不要单独搜索"GmbH"或"Verwaltungsgesellschaft"
+  </Step>
+
+  <Step title="分析结果">
+    - **无结果** → 继续创建新条目
+    - **找到Betriebsstätte** → 转换为Hauptsitz
+    - **Externer Hauptsitz** → 更新并转换
+    - **完全匹配** → 可能是重复，请咨询主管
+  </Step>
+</Steps>
+
+### 阶段3：创建新条目（30秒）
+
+仅当阶段2未找到现有条目时！
+
+1. 右键点击 → 选择条目类型：
+   - **Hauptsitz**（90%+的情况 - 标准GmbH、UG、AG）
+   - **Zweigniederlassung**（仅分支机构）
+   - **GBR**（eGbR合伙企业）
+
+### 阶段4：填写公司数据（2-3分钟）
+
+1. 点击 **"Gewerbedaten füllen"**（但要验证所有内容！）
+2. 从PDF中准确输入 **Firmierung**
+3. 输入 **Alphasort**（2个以上单词，避免禁用的首字）
+4. 输入 **地址**（汉堡规则：小写后缀如"12a"）
+5. 通过下拉菜单验证 **PLZ**
+
+<Warning>
+**Alphasort禁用的首字：**
+❌ Verwaltungsgesellschaft
+❌ Beteiligungsgesellschaft
+❌ Schifffahrtsgesellschaft
+</Warning>
+
+### 阶段5：输入Beteiligten（董事）（每人3-5分钟）
+
+<Note>
+**最复杂的阶段** - 请仔细遵循！
+</Note>
+
+**步骤1：确定功能代码** 🔑
+
+<CardGroup cols={2}>
+  <Card title="代码24" icon="user">
+    **独立代表权**
+
+    单个董事或每个人独立行事
+
+    关键词："vertritt allein"
+  </Card>
+  <Card title="代码8" icon="users">
+    **共同代表权**
+
+    必须共同行事
+
+    关键词："gemeinschaftlich"、"durch zwei"
+  </Card>
+</CardGroup>
+
+**步骤2：搜索并添加每位董事**
+
+1. 搜索：姓氏 + 名字 + 出生日期
+2. 如果找到（出生日期匹配）：分配现有人员
+3. 如果未找到：创建新人员
+
+**步骤3：姓名处理规则** ⚠️
+
+<Tabs>
+  <Tab title="德国居民">
+    **Vorname（名）：** 仅第一个名字
+
+    **Schlagwort（关键词）：** 其他名字
+
+    示例："Hans Peter Müller，汉堡"
+    - Vorname："Hans"
+    - Schlagwort："Peter"
+  </Tab>
+  <Tab title="外国居民">
+    **Vorname（名）：** 所有名字合在一起
+
+    **Schlagwort（关键词）：** 留空或可选
+
+    示例："Hans Peter Müller，维也纳"
+    - Vorname："Hans Peter"
+  </Tab>
+</Tabs>
+
+**步骤4：设置日期**
+
+- **Beginndatum（开始日期）：** Tag der Eintragung（第7节）- 所有董事使用相同日期
+
+### 阶段6：输入行业代码（1-2分钟）
+
+1. 导航到 **"Branchenschlüssel"**
+2. 分析PDF第2节"Gegenstand"（业务目的）
+3. 选择1-4个行业代码
+4. 优先考虑主要业务活动
+
+### 阶段7：输入资本（30秒）
+
+**如果是GmbH、UG或AG：**
+
+- 导航到 **"Stammkapital"**
+- 从PDF第3节复制金额
+- 格式：德国数字格式（25.000,00 EUR）
+
+**常见金额：**
+- GmbH：最低25.000,00 EUR
+- UG：最低1,00 EUR
+- AG：最低50.000,00 EUR
+
+### 阶段8：审查并完成（1-2分钟）
+
+**最终检查清单：**
+
+<Steps>
+  <Step title="公司数据">
+    ✅ Firmierung、Alphasort、地址完整
+  </Step>
+  <Step title="董事">
+    ✅ 所有人员都输入了正确的功能代码
+
+    ✅ Beginndatum = Tag der Eintragung
+  </Step>
+  <Step title="行业和资本">
+    ✅ Branchenschlüssel（1-4个代码）
+
+    ✅ 资本金额（如适用）
+  </Step>
+  <Step title="保存">
+    点击 **"Speichern"** 或 **"Fertigstellen"**
+  </Step>
+</Steps>
+
+---
+
+## 避免常见错误
+
+<AccordionGroup>
+  <Accordion title="❌ 跳过搜索阶段">
+    **后果：** 重复条目，浪费时间
+
+    **正确做法：** 始终先搜索 - 50%已经存在！
+  </Accordion>
+
+  <Accordion title="❌ 信任自动填充">
+    **后果：** 错误的地址，错误的名称
+
+    **正确做法：** 对照PDF验证每个字段
+  </Accordion>
+
+  <Accordion title="❌ 错误的功能代码">
+    **后果：** 法律授权错误，责任问题
+
+    **正确做法：** 在输入董事之前仔细阅读第4节
+  </Accordion>
+
+  <Accordion title="❌ 错误的姓名处理">
+    **后果：** 数据不一致，搜索问题
+
+    **正确做法：** 首先检查居住地 - 德国与外国规则不同
+  </Accordion>
+
+  <Accordion title="❌ 使用禁用的Alphasort词">
+    **后果：** 系统冻结，搜索失败
+
+    **正确做法：** 使用独特的关键词，避免在位置1使用常见术语
+  </Accordion>
+
+  <Accordion title="❌ 错误的Beginndatum">
+    **后果：** 时间线错误，审计失败
+
+    **正确做法：** 始终对所有董事使用Tag der Eintragung
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## 快速参考检查清单
+
+### ✅ 创建新条目之前
+- [ ] 搜索了公司名称（ähnlich）
+- [ ] 如果是Sitzverlegung，搜索了变体
+- [ ] 检查了Betriebsstätte / Externer Hauptsitz
+- [ ] 确认没有现有条目
+
+### ✅ 公司数据完整
+- [ ] Firmierung与PDF完全一致
+- [ ] Alphasort 2个以上单词，无禁用首字
+- [ ] 地址已验证（汉堡规则：小写后缀）
+- [ ] PLZ通过下拉菜单验证
+
+### ✅ 每位董事条目
+- [ ] 功能代码已确定（24或8）
+- [ ] 按姓名 + 出生日期搜索了人员
+- [ ] 姓名处理正确（德国与外国）
+- [ ] Beginndatum = Tag der Eintragung
+- [ ] 人员已保存在Beteiligten列表中
+
+### ✅ 最终审查
+- [ ] 所有董事已输入（数量与PDF匹配）
+- [ ] 功能代码一致
+- [ ] 已选择Branchenschlüssel（1-4个）
+- [ ] 已输入资本（如适用）
+- [ ] 所有Objektbaum部分完整
+- [ ] 条目已保存
+
+---
+
+## 何时寻求帮助
+
+**🚩 在培训期间始终标记：**
+- Sitzverlegung（搬迁）
+- Zweigniederlassung（分支机构）
+- 企业董事（公司作为Geschäftsführer）
+- 找到Betriebsstätte/Externer Hauptsitz
+- 找到已删除的公司
+- 缺少关键数据
+- 不明确的功能代码
+- 已处理的条目
+- 任何感觉不对的情况
+
+---
+
+## 术语表
+
+| 德文 | 中文 | 英文 | 备注 |
+|------|------|------|------|
+| **Anmeldung** | 登记 | Registration | 新公司 |
+| **Beteiligten** | 参与者/董事 | Directors/Stakeholders | |
+| **Betriebsstätte** | 经营地点 | Branch location | 转换为Hauptsitz |
+| **Branchenschlüssel** | 行业代码 | Industry code | 1-4个代码 |
+| **Firmierung** | 公司名称 | Company name | 法定名称 |
+| **Funktion** | 功能代码 | Function code | 24或8 |
+| **Geschäftsführer** | 董事总经理 | Managing director | |
+| **Hauptsitz** | 总部 | Headquarters | 标准条目类型 |
+| **Neueintragung** | 新注册 | New registration | 此流程 |
+| **Sitzverlegung** | 总部搬迁 | HQ relocation | 搜索两个名称 |
+| **Stammkapital** | 注册资本 | Share capital | GmbH/UG/AG |
+| **Tag der Eintragung** | 注册日期 | Registration date | 用作Beginndatum |
+| **Zweigniederlassung** | 分支机构 | Branch office | 不同的条目类型 |
+
+---
+
+## 其他资源
+
+<CardGroup cols={3}>
+  <Card title="边缘案例" icon="triangle-exclamation" href="/ihk/neueintragungen/edge-cases">
+    80+场景和故障排除
+  </Card>
+  <Card title="字段映射" icon="table" href="/zh/ihk/neueintragungen/field-mapping">
+    PDF到EVA字段参考
+  </Card>
+  <Card title="返回概述" icon="arrow-left" href="/ihk/neueintragungen/overview">
+    返回流程概述
+  </Card>
+</CardGroup>
+
+---
+
+**文档版本：** 1.0 | **日期：** 2025-11-14
+
+如有问题或错误，请联系您的主管或培训协调员。
