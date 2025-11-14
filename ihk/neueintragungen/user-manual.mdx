@@ -1,34 +1,360 @@
 ---
-title: "EVA System User Manual"
-description: "Step-by-step guide for processing Handelsregister Neueintragungen"
+title: "User Manual: Neueintragungen"
+description: "Complete step-by-step guide for processing new company registrations in EVA system"
 ---
 
-## EVA System User Manual: Handelsregister Neueintragungen
+<Note>
+**Version:** 1.0 | **Updated:** 2025-11-14
 
-<Info>
-**Content coming soon**
+**Daily Stats:** ~140 entries/day | 30-45 min per entry | ~50% already exist in system
+</Note>
 
-This page will contain the complete step-by-step procedural guide covering:
-- Getting started and daily workflow setup
-- Eight-phase processing guide (Analyze → Complete)
-- Edge cases and troubleshooting
-- Common mistakes and quick reference checklists
-</Info>
+## Overview
 
-### What This Manual Covers
+This manual provides complete procedural guidance for processing **Handelsregister Neueintragungen** (new company registrations) in the EVA system for Hamburg Chamber of Commerce.
 
-- Prerequisites and system access
-- Daily workflow setup
-- Step-by-step processing guide (8 phases)
-- Edge cases & troubleshooting
-- Common mistakes to avoid
-- Quick reference checklists
-- Glossary of German terms
+<Warning>
+**CRITICAL RULE:** Always search before creating! Approximately 50% of Neue
 
-### Processing Statistics
+intragungen already exist as branches or external headquarters.
+</Warning>
 
-- **~140 entries per day** for Hamburg
-- **~50% already exist** in system
-- **Most time-consuming** of three process types
+## Prerequisites
 
-[Back to Overview →](/ihk/overview)
+- ✅ Access to EVA system
+- ✅ Access to Handelsregister PDF meldungen
+- ✅ Understanding of German commercial register concepts
+- ✅ This manual
+
+---
+
+## Daily Workflow Setup
+
+### Step 1: Navigate to Meldungen
+
+1. Open EVA system
+2. Click **"Meldung"** → **"Übersicht"**
+
+### Step 2: Filter for Your Work
+
+1. Click arrow/dropdown at bottom
+2. Select:
+   - **"Handelsregister"**
+   - **"HRB"** and **"HRA"**
+   - **"Anmeldung"**
+3. Apply filter
+
+### Step 3: Select Processing Date
+
+<Warning>
+Process **chronologically**! Complete one date before moving to next to avoid missing complementary entries.
+</Warning>
+
+1. Select earliest unprocessed date
+2. View all entries for that day
+3. Open first entry
+
+**Pro Tip:** Keep PDF viewer open throughout—don't close between entries.
+
+---
+
+## 8-Phase Processing Guide
+
+Complete User Manual content is available in the source documentation. Below are the key phases:
+
+### Phase 1: Analyze the PDF (1-2 min)
+
+**Essential checks:**
+- **Section 1:** Entry number (HRB/HRA)
+- **Section 2:** Company name & location
+- **Section 4:** Directors count
+- **Section 7:** Registration date (Beginndatum)
+
+**Red flags:**
+- "Sitzverlegung" → Search old AND new names
+- "Zweigniederlassung" → Branch, not HQ
+- "eGbR" → Process under HR Sonstiges
+
+### Phase 2: Search for Existing Entry (3-5 min) ⚠️ CRITICAL
+
+<Steps>
+  <Step title="Configure Search">
+    Open **"Allgemein" → "Suche"**
+
+    Select: ☑ Firmen ☑ Personen
+
+    Mode: **"Ähnlich suchen"**
+  </Step>
+
+  <Step title="Search Company Name">
+    Enter 2-3 meaningful words from company name
+
+    ❌ Don't search "GmbH" or "Verwaltungsgesellschaft" alone
+  </Step>
+
+  <Step title="Analyze Results">
+    - **No results** → Proceed to create new
+    - **Betriebsstätte found** → Convert to Hauptsitz
+    - **Externer Hauptsitz** → Update & convert
+    - **Exact match** → May be duplicate, check supervisor
+  </Step>
+</Steps>
+
+[View complete search workflow →](/ihk/neueintragungen/user-manual#phase-2-search)
+
+### Phase 3: Create New Entry (30 sec)
+
+Only if Phase 2 found NO existing entries!
+
+1. Right-click → Select entry type:
+   - **Hauptsitz** (90%+ cases - standard GmbH, UG, AG)
+   - **Zweigniederlassung** (branches only)
+   - **GBR** (eGbR partnerships)
+
+### Phase 4: Fill Company Data (2-3 min)
+
+1. Click **"Gewerbedaten füllen"** (but verify everything!)
+2. Enter **Firmierung** exactly from PDF
+3. Enter **Alphasort** (2+ words, avoid prohibited first words)
+4. Enter **Address** (Hamburg rules: lowercase suffixes like "12a")
+5. Validate **PLZ** via dropdown
+
+<Warning>
+**Alphasort prohibited first words:**
+❌ Verwaltungsgesellschaft
+❌ Beteiligungsgesellschaft
+❌ Schifffahrtsgesellschaft
+</Warning>
+
+### Phase 5: Enter Beteiligten (Directors) (3-5 min each)
+
+<Note>
+**Most complex phase** - follow carefully!
+</Note>
+
+**Step 1: Determine Function Code** 🔑
+
+<CardGroup cols={2}>
+  <Card title="Code 24" icon="user">
+    **Alleinvertretung**
+
+    Single director OR each acts alone
+
+    Keywords: "vertritt allein"
+  </Card>
+  <Card title="Code 8" icon="users">
+    **Gemeinsame Vertretung**
+
+    Must act together
+
+    Keywords: "gemeinschaftlich", "durch zwei"
+  </Card>
+</CardGroup>
+
+**Step 2: Search & Add Each Director**
+
+1. Search by: Nachname + Vorname + Geburtsdatum
+2. If found (DoB matches): Assign existing person
+3. If not found: Create new person
+
+**Step 3: Name Handling Rules** ⚠️
+
+<Tabs>
+  <Tab title="German Residents">
+    **Vorname:** First given name ONLY
+
+    **Schlagwort:** Additional given names
+
+    Example: "Hans Peter Müller, Hamburg"
+    - Vorname: "Hans"
+    - Schlagwort: "Peter"
+  </Tab>
+  <Tab title="Foreign Residents">
+    **Vorname:** ALL given names together
+
+    **Schlagwort:** Empty or optional
+
+    Example: "Hans Peter Müller, Vienna"
+    - Vorname: "Hans Peter"
+  </Tab>
+</Tabs>
+
+**Step 4: Set Dates**
+
+- **Beginndatum:** Tag der Eintragung (Section 7) - same for ALL directors
+
+### Phase 6: Enter Branchenschlüssel (1-2 min)
+
+1. Navigate to **"Branchenschlüssel"**
+2. Analyze PDF Section 2 "Gegenstand" (Business Purpose)
+3. Select 1-4 industry codes
+4. Prioritize primary business activity
+
+### Phase 7: Enter Capital (30 sec)
+
+**If GmbH, UG, or AG:**
+
+- Navigate to **"Stammkapital"**
+- Copy amount from PDF Section 3
+- Format: German numbers (25.000,00 EUR)
+
+**Common amounts:**
+- GmbH: 25.000,00 EUR minimum
+- UG: 1,00 EUR minimum
+- AG: 50.000,00 EUR minimum
+
+### Phase 8: Review & Complete (1-2 min)
+
+**Final checklist:**
+
+<Steps>
+  <Step title="Company Data">
+    ✅ Firmierung, Alphasort, Address complete
+  </Step>
+  <Step title="Directors">
+    ✅ All entered with correct Function Code
+
+    ✅ Beginndatum = Tag der Eintragung
+  </Step>
+  <Step title="Industry & Capital">
+    ✅ Branchenschlüssel (1-4 codes)
+
+    ✅ Capital amount (if applicable)
+  </Step>
+  <Step title="Save">
+    Click **"Speichern"** or **"Fertigstellen"**
+  </Step>
+</Steps>
+
+---
+
+## Common Mistakes to Avoid
+
+<AccordionGroup>
+  <Accordion title="❌ Skipping Search Phase">
+    **Consequence:** Duplicate entries, wasted time
+
+    **Do:** ALWAYS search first - 50% already exist!
+  </Accordion>
+
+  <Accordion title="❌ Trusting Auto-Fill">
+    **Consequence:** Wrong addresses, wrong names
+
+    **Do:** Verify EVERY field against PDF
+  </Accordion>
+
+  <Accordion title="❌ Wrong Function Code">
+    **Consequence:** Legal authority errors, liability issues
+
+    **Do:** Read Section 4 carefully before entering directors
+  </Accordion>
+
+  <Accordion title="❌ Wrong Name Handling">
+    **Consequence:** Data inconsistency, search problems
+
+    **Do:** Check residence first - German vs Foreign rules differ
+  </Accordion>
+
+  <Accordion title="❌ Using Prohibited Alphasort Words">
+    **Consequence:** System freeze, search failures
+
+    **Do:** Use distinctive keywords, avoid common terms in position 1
+  </Accordion>
+
+  <Accordion title="❌ Wrong Beginndatum">
+    **Consequence:** Timeline errors, audit failures
+
+    **Do:** ALWAYS use Tag der Eintragung for all directors
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Quick Reference Checklists
+
+### ✅ Before Creating New Entry
+- [ ] Searched company name (ähnlich)
+- [ ] Searched variations if Sitzverlegung
+- [ ] Checked for Betriebsstätte / Externer Hauptsitz
+- [ ] Confirmed NO existing entry
+
+### ✅ Company Data Complete
+- [ ] Firmierung exact from PDF
+- [ ] Alphasort 2+ words, no prohibited first word
+- [ ] Address verified (Hamburg rules: lowercase suffixes)
+- [ ] PLZ validated via dropdown
+
+### ✅ Per Director Entry
+- [ ] Function code determined (24 or 8)
+- [ ] Searched person by name + DoB
+- [ ] Names handled correctly (German vs Foreign)
+- [ ] Beginndatum = Tag der Eintragung
+- [ ] Person saved in Beteiligten list
+
+### ✅ Final Review
+- [ ] All directors entered (count matches PDF)
+- [ ] Function codes consistent
+- [ ] Branchenschlüssel selected (1-4)
+- [ ] Capital entered (if applicable)
+- [ ] All Objektbaum sections complete
+- [ ] Entry saved
+
+---
+
+## When to Ask for Help
+
+**🚩 Always flag during training:**
+- Sitzverlegung (relocation)
+- Zweigniederlassung (branch)
+- Corporate director (company as Geschäftsführer)
+- Betriebsstätte/Externer Hauptsitz found
+- Deleted company found
+- Missing critical data
+- Unclear function code
+- Already processed entry
+- Any case that feels wrong
+
+---
+
+## Glossary
+
+| German | English | Notes |
+|--------|---------|-------|
+| **Anmeldung** | Registration | New company |
+| **Beteiligten** | Directors/Stakeholders | |
+| **Betriebsstätte** | Branch location | Convert to Hauptsitz |
+| **Branchenschlüssel** | Industry code | 1-4 codes |
+| **Firmierung** | Company name | Legal name |
+| **Funktion** | Function code | 24 or 8 |
+| **Geschäftsführer** | Managing director | |
+| **Hauptsitz** | Headquarters | Standard entry type |
+| **Neueintragung** | New registration | This process |
+| **Sitzverlegung** | HQ relocation | Search both names |
+| **Stammkapital** | Share capital | GmbH/UG/AG |
+| **Tag der Eintragung** | Registration date | Use as Beginndatum |
+| **Zweigniederlassung** | Branch office | Different entry type |
+
+[View complete glossary →](/ihk/neueintragungen/field-mapping)
+
+---
+
+## Additional Resources
+
+<CardGroup cols={3}>
+  <Card title="Edge Cases" icon="triangle-exclamation" href="/ihk/neueintragungen/edge-cases">
+    80+ scenarios and troubleshooting
+  </Card>
+  <Card title="Field Mapping" icon="table" href="/ihk/neueintragungen/field-mapping">
+    PDF to EVA field reference
+  </Card>
+  <Card title="Back to Overview" icon="arrow-left" href="/ihk/neueintragungen/overview">
+    Return to process overview
+  </Card>
+</CardGroup>
+
+---
+
+**Document Version:** 1.0 | **Date:** 2025-11-14
+**Based on:** Workshop sessions and screen recording transcripts
+
+For questions or errors, contact your supervisor or training coordinator.

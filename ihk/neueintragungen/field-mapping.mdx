@@ -1,46 +1,442 @@
 ---
 title: "Field Mapping Guide"
-description: "Complete PDF-to-EVA system field mapping reference"
+description: "Complete PDF-to-EVA system field mapping reference for Neueintragungen"
 ---
 
-## Handelsregister Field Mapping Guide
+## Overview
 
-<Info>
-**Content coming soon**
+This guide provides complete reference for mapping data from Handelsregister PDF documents to EVA system fields.
 
-This page will contain the complete reference for PDF-to-EVA field mapping:
-- Section-by-section PDF structure breakdown
-- EVA system field definitions
-- Processing rules and special cases
-- Automation considerations
-</Info>
+<Note>
+**Purpose:** Quick reference for field-by-field data entry
 
-### What This Guide Covers
+**Version:** 1.0 | **Updated:** 2025-11-14
+</Note>
 
-**PDF Structure Mapping:**
-1. Nummer der Eintragung (Entry Number)
-2. Firma (Company Name)
-3. Sitz (Registered Office/Address)
-4. Gegenstand (Business Purpose)
-5. Stammkapital (Share Capital)
-6. Vertretungsregelung (Representation Rules)
-7. Rechtsform (Legal Form)
-8. Tag der Eintragung (Registration Date)
+---
 
-**EVA System Workflow:**
-- Search process (critical first step)
-- Company data entry
-- Director/stakeholder management
-- Industry codes
-- Capital information
-- Review and completion
+## PDF Structure
 
-### Key Field Mappings
+Handelsregister Neueintragung PDFs follow standard structure:
 
-- **Firmierung** ← PDF Section 2 (Company Name)
-- **Anschrift** ← PDF Section 2 (Address)
-- **Beteiligten** ← PDF Section 4 (Directors)
-- **Branchenschlüssel** ← PDF Section 2 (Business Purpose)
-- **Stammkapital** ← PDF Section 3 (Capital)
+<CardGroup cols={4}>
+  <Card title="Section 1" icon="1">
+    Entry Number
 
-[Back to Overview →](/ihk/overview)
+    HRB/HRA number
+  </Card>
+  <Card title="Section 2" icon="2">
+    Company Details
+
+    Name, address, business
+  </Card>
+  <Card title="Sections 3-4" icon="3">
+    Capital & Directors
+
+    Financial + management
+  </Card>
+  <Card title="Sections 6-7" icon="7">
+    Legal Form & Date
+
+    Type + registration date
+  </Card>
+</CardGroup>
+
+---
+
+## Complete Field Mapping
+
+### Section 1: Nummer der Eintragung
+
+**PDF Field:** Entry number (e.g., "HRB 123456")
+
+**EVA Usage:**
+- Used for verification only
+- Confirms register type (HRB vs HRA)
+- Not entered as separate field
+
+<Note>
+**HRB** = Handelsregister B (corporations: GmbH, UG, AG)
+**HRA** = Handelsregister A (partnerships: OHG, KG, e.K.)
+</Note>
+
+---
+
+### Section 2: Firma (Company Name)
+
+**PDF Field:** "Firma: [Company Name]"
+
+**EVA Fields:**
+
+| EVA Field | Content | Rules |
+|-----------|---------|-------|
+| **Firmierung** | Full legal name | Copy EXACTLY from PDF, include legal form |
+| **Kurzfirmierung** | Short name | Simple: same as full. Complex: abbreviated |
+| **Alphasort** | Search keywords | 2+ words, no prohibited first words |
+| **Schlagwort** | Additional keywords | Similar to Alphasort |
+
+**Examples:**
+```
+PDF: "Holtkuh Verwaltungsgesellschaft mbH"
+→ Firmierung: "Holtkuh Verwaltungsgesellschaft mbH"
+→ Kurzfirmierung: "Holtkuh VerwGes mbH"
+→ Alphasort: "Holtkuh Verwaltungsgesellschaft"
+→ Schlagwort: "Holtkuh"
+```
+
+<Warning>
+**Alphasort Prohibited First Words:**
+- ❌ Verwaltungsgesellschaft
+- ❌ Beteiligungsgesellschaft
+- ❌ Schifffahrtsgesellschaft
+
+Can use in Position 2+
+</Warning>
+
+---
+
+### Section 2: Sitz (Address)
+
+**PDF Field:** "Sitz: [Address]"
+
+**EVA Fields:**
+
+| EVA Field | Content | Hamburg Rules |
+|-----------|---------|---------------|
+| **Straße** | Street name | "Straße" → "Str." |
+| **Hausnummer** | House number | Letter suffixes LOWERCASE: "12a" |
+| **PLZ** | Postal code | Select from dropdown (validates) |
+| **Ort** | City | Usually "Hamburg" |
+| **Land** | Country | Usually "Deutschland" |
+| **Zusätze** | Supplements | C/O, building names, floor |
+
+**Examples:**
+```
+PDF: "Hauptstraße 12A, 20095 Hamburg"
+→ Straße: "Hauptstr."
+→ Hausnummer: "12a"
+→ PLZ: "20095" (select from dropdown)
+→ Ort: "Hamburg"
+→ Land: "Deutschland"
+```
+
+---
+
+### Section 2: Gegenstand (Business Purpose)
+
+**PDF Field:** "Gegenstand des Unternehmens: [Description]"
+
+**EVA Field:** **Branchenschlüssel** (Industry Codes)
+
+**Mapping:**
+1. Read business purpose description
+2. Identify primary and secondary activities
+3. Select 1-4 industry codes
+4. Prioritize: Primary first, then secondary
+
+**Examples:**
+
+<Tabs>
+  <Tab title="Example 1">
+    **PDF:** "Betrieb einer Gaststätte und eines Hotels"
+
+    **Codes:**
+    - Restaurant operations (primary)
+    - Hotel operations (secondary)
+  </Tab>
+  <Tab title="Example 2">
+    **PDF:** "Vermögensverwaltung und Beteiligungen"
+
+    **Codes:**
+    - Asset management (primary)
+    - Holdings/investments (secondary)
+  </Tab>
+  <Tab title="Example 3">
+    **PDF:** "IT-Beratung und Softwareentwicklung"
+
+    **Codes:**
+    - IT consulting (primary)
+    - Software development (secondary)
+  </Tab>
+</Tabs>
+
+---
+
+### Section 3: Stammkapital (Share Capital)
+
+**PDF Field:** "Stammkapital: [Amount] EUR"
+
+**EVA Field:** **Stammkapital** or **Kapital**
+
+**Mapping:**
+- Copy amount exactly
+- German number format: 25.000,00 EUR
+- Period for thousands, comma for decimals
+
+**Common Amounts:**
+
+| Legal Form | Minimum | Typical |
+|------------|---------|---------|
+| **GmbH** | 25.000,00 EUR | 25.000,00 EUR |
+| **UG** | 1,00 EUR | 1,00 - 24.999,99 EUR |
+| **AG** | 50.000,00 EUR | 50.000,00+ EUR |
+
+<Note>
+OHG, KG, e.K. may not have capital requirements or use different fields.
+</Note>
+
+---
+
+### Section 4: Geschäftsführer (Directors)
+
+**PDF Field:** "Geschäftsführer: [Name, DoB, Address]"
+
+**EVA Section:** **Beteiligten** (multiple sub-fields per person)
+
+#### Per Director Mapping:
+
+<Steps>
+  <Step title="Determine Function Code FIRST">
+    Read "Allgemeine Vertretungsregelung"
+
+    - **Code 24:** Acts alone (Alleinvertretung)
+    - **Code 8:** Must act together (Gemeinsame Vertretung)
+  </Step>
+
+  <Step title="Search Person">
+    Search by: Nachname + Vorname + Geburtsdatum
+
+    If found → Assign existing. If not → Create new.
+  </Step>
+
+  <Step title="Enter Person Data">
+    Fill all fields per person
+  </Step>
+</Steps>
+
+#### Person Field Mapping:
+
+| EVA Field | Source | Rules |
+|-----------|--------|-------|
+| **Nachname** | Last name from PDF | Include "von", "zu" as part of name |
+| **Vorname** | First name(s) | **DEPENDS ON RESIDENCE!** |
+| **Schlagwort** | Additional names | **German residents only** |
+| **Geburtsdatum** | Birth date | DD.MM.YYYY format |
+| **Geburtsort** | Birth place | If provided in PDF |
+| **Wohnort** | Current residence | Determines name handling rules |
+| **Funktion** | Function code | 24 or 8 (determined from Section 4) |
+| **Beginndatum** | Start date | **Tag der Eintragung (Section 7)** |
+
+#### Name Handling Rules (CRITICAL!):
+
+<Tabs>
+  <Tab title="German Residents">
+    **If Wohnort = German city:**
+
+    **Vorname:** FIRST given name ONLY
+
+    **Schlagwort:** ALL additional given names
+
+    **Example:**
+    ```
+    PDF: "Hans Peter Wilhelm Müller, wohnhaft in Hamburg"
+    → Vorname: "Hans"
+    → Schlagwort: "Peter Wilhelm"
+    ```
+  </Tab>
+  <Tab title="Foreign Residents">
+    **If Wohnort = Foreign city:**
+
+    **Vorname:** ALL given names together
+
+    **Schlagwort:** Empty or optional
+
+    **Example:**
+    ```
+    PDF: "Hans Peter Wilhelm Müller, wohnhaft in Wien, Österreich"
+    → Vorname: "Hans Peter Wilhelm"
+    → Schlagwort: (empty)
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+### Section 6: Rechtsform (Legal Form)
+
+**PDF Field:** Legal form text
+
+**EVA Usage:**
+- Determines entry type (Hauptsitz vs Zweigniederlassung vs GBR)
+- Determines if capital required
+- Affects navigation structure
+
+**Mapping:**
+
+| PDF Legal Form | EVA Entry Type | Notes |
+|----------------|----------------|-------|
+| GmbH, UG, AG | **Hauptsitz** | Standard corporations |
+| OHG, KG, e.K. | **Hauptsitz** | Partnerships |
+| eGbR | **GBR** | In HR Sonstige filter |
+| Zweigniederlassung... | **Zweigniederlassung** | Branch office |
+
+---
+
+### Section 7: Tag der Eintragung (Registration Date)
+
+**PDF Field:** "Tag der Eintragung: DD.MM.YYYY"
+
+**EVA Usage:** **CRITICAL - Used everywhere!**
+
+This date becomes:
+- **Beginndatum** for ALL directors
+- Start date for company operations
+- Reference date throughout system
+
+<Warning>
+**Use the SAME date (Tag der Eintragung) for:**
+- All Beteiligten (directors) Beginndatum
+- Any other date fields requiring start date
+- **NEVER use today's date or different dates per director!**
+</Warning>
+
+---
+
+## Processing Workflow Mapping
+
+### Step 1: Search (No Direct PDF Mapping)
+
+**Action:** Search for existing entry BEFORE creating
+
+**Fields to search:**
+- Company name from Section 2
+- Person names from Section 4 (optional but recommended)
+
+**Why:** ~50% already exist as Betriebsstätte or Externer Hauptsitz
+
+---
+
+### Step 2: Company Data Entry
+
+**PDF → EVA:**
+- Section 2 Firma → Firmierung, Alphasort, Schlagwort
+- Section 2 Sitz → Anschrift (all address fields)
+
+---
+
+### Step 3: Directors Entry
+
+**PDF → EVA:**
+- Section 4 "Allgemeine Vertretungsregelung" → Function Code (24 or 8)
+- Section 4 Person details → Beteiligten (per person)
+- Section 7 Tag der Eintragung → Beginndatum (all directors)
+
+---
+
+### Step 4: Industry Codes
+
+**PDF → EVA:**
+- Section 2 "Gegenstand" → Branchenschlüssel (1-4 codes)
+
+---
+
+### Step 5: Capital
+
+**PDF → EVA:**
+- Section 3 "Stammkapital" → Stammkapital field
+
+---
+
+## Special Cases & Exceptions
+
+### Sitzverlegung (Relocation)
+
+**PDF Indicator:** "verlegt von [Stadt] nach Hamburg"
+
+**Action:** Search both old and new locations, convert existing entry
+
+---
+
+### Zweigniederlassung (Branch)
+
+**PDF Indicator:** "Zweigniederlassung der [Parent Company]"
+
+**Action:** Use Zweigniederlassung entry type, link to parent
+
+---
+
+### Multiple Directors
+
+**PDF:** List of 2+ directors
+
+**Action:** Enter each separately with SAME function code and Beginndatum
+
+---
+
+## Quick Reference Matrix
+
+| PDF Location | PDF Field | EVA Section | EVA Field(s) | Special Rules |
+|--------------|-----------|-------------|--------------|---------------|
+| **Section 1** | HRB Number | - | (verification only) | Confirms register type |
+| **Section 2** | Firma | Stammdaten | Firmierung, Kurzfirmierung, Alphasort, Schlagwort | Exact copy, 2+ word Alphasort |
+| **Section 2** | Sitz | Anschrift | Straße, Hausnummer, PLZ, Ort, Land | Hamburg: lowercase suffixes |
+| **Section 2** | Gegenstand | Branchenschlüssel | 1-4 industry codes | Select from system codes |
+| **Section 3** | Stammkapital | Kapital | Stammkapital | German number format |
+| **Section 4** | Vertretungsregelung | - | Function Code | Determine BEFORE entering directors |
+| **Section 4** | Geschäftsführer | Beteiligten | Nachname, Vorname, Schlagwort, DoB, Function, Beginndatum | Name rules vary by residence |
+| **Section 7** | Tag der Eintragung | Beteiligten | Beginndatum (all directors) | SAME date for all |
+
+---
+
+## Glossary
+
+| German Term | English | EVA Field / Section |
+|-------------|---------|---------------------|
+| **Alphasort** | Search keywords | Stammdaten |
+| **Anschrift** | Address | Address section |
+| **Beginndatum** | Start date | Beteiligten per person |
+| **Beteiligten** | Directors/Stakeholders | Directors section |
+| **Branchenschlüssel** | Industry code | Industry section |
+| **Firma** | Company name | Firmierung |
+| **Firmierung** | Legal company name | Stammdaten |
+| **Funktion** | Function code | Beteiligten per person |
+| **Geburtsdatum** | Date of birth | Beteiligten per person |
+| **Geburtsort** | Place of birth | Beteiligten per person |
+| **Gegenstand** | Business purpose | → Branchenschlüssel |
+| **Geschäftsführer** | Managing director | Beteiligten |
+| **Hauptsitz** | Headquarters | Entry type |
+| **Hausnummer** | House number | Anschrift |
+| **Kurzfirmierung** | Short company name | Stammdaten |
+| **Nachname** | Last name | Beteiligten per person |
+| **Ort** | City | Anschrift |
+| **PLZ** | Postal code | Anschrift |
+| **Schlagwort** | Keywords | Stammdaten & Beteiligten |
+| **Sitz** | Registered office | Anschrift |
+| **Stammkapital** | Share capital | Capital section |
+| **Straße** | Street | Anschrift |
+| **Tag der Eintragung** | Registration date | → Beginndatum |
+| **Vorname** | First name(s) | Beteiligten per person |
+| **Wohnort** | Place of residence | Beteiligten per person |
+| **Zweigniederlassung** | Branch office | Entry type |
+
+---
+
+## Additional Resources
+
+<CardGroup cols={3}>
+  <Card title="User Manual" icon="book" href="/ihk/neueintragungen/user-manual">
+    Step-by-step processing guide
+  </Card>
+  <Card title="Edge Cases" icon="triangle-exclamation" href="/ihk/neueintragungen/edge-cases">
+    80+ unusual scenarios
+  </Card>
+  <Card title="Back to Overview" icon="arrow-left" href="/ihk/neueintragungen/overview">
+    Return to process overview
+  </Card>
+</CardGroup>
+
+---
+
+**Document Version:** 1.0 | **Date:** 2025-11-14
+
+For questions or clarifications, contact your supervisor or training coordinator.

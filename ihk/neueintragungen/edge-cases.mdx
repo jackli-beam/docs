@@ -1,45 +1,541 @@
 ---
 title: "Edge Cases & Advanced Scenarios"
-description: "Comprehensive reference for handling unusual processing scenarios"
+description: "Comprehensive reference for handling 80+ unusual processing scenarios"
 ---
 
-## Comprehensive Edge Cases & Advanced Scenarios
+## Overview
 
-<Info>
-**Content coming soon**
+This document identifies edge cases beyond standard processing—scenarios a new user or AI agent might encounter and not know how to handle.
 
-This page will contain comprehensive coverage of 80+ edge cases across 14 phases:
-- PDF document issues
-- Search and identification challenges
-- Company name processing complexities
-- Address validation scenarios
-- Person/director data edge cases
-- Legal representation complexities
-- Compliance and system integration issues
-</Info>
+<Note>
+**Document Purpose:** Complete reference for unusual scenarios across 14 processing phases
 
-### Coverage Areas
+**Version:** 1.0 | **Updated:** 2025-11-14
+</Note>
 
-**14 Processing Phases:**
-1. PDF Document Issues
-2. Search & Identification Issues
-3. Company Name Processing
-4. Address Validation
-5. Person/Director Data
-6. Legal Representation
-7. Date/Time Issues
-8. Capital/Financial
-9. Business Purpose/Industry
-10. System/Technical
-11. Data Quality
-12. Workflow/Timing
-13. Compliance/Legal
-14. Cross-System Integration
-
-### Edge Case Categories
+### Severity Levels
 
 - 🔴 **CRITICAL** - Blocks processing, requires immediate escalation
 - 🟡 **WARNING** - Can proceed with caution, flag for review
 - 🟢 **INFO** - Informational, can handle with standard procedures
 
-[Back to Overview →](/ihk/overview)
+---
+
+## Phase 1: PDF Document Issues
+
+### EC001: PDF Corruption or Unreadable
+**Severity:** 🔴 CRITICAL
+
+**Scenario:**
+- PDF won't open or shows garbled text
+- Extraction tool can't read the PDF
+- Missing sections or error messages
+
+**Resolution:**
+1. Try alternative PDF viewer (Adobe, browser, system default)
+2. Request file re-download and verify file size
+3. Check Bundesanzeiger for better quality version
+4. Request replacement from Amtsgericht Hamburg
+5. Flag for IT support if system-wide
+
+**Escalation:** Immediate - cannot process without readable document
+
+---
+
+### EC002: Multiple Companies in Single PDF
+**Severity:** 🟡 WARNING
+
+**Scenario:**
+- PDF contains 2+ Neueintragungen
+- Related companies filed together (e.g., GmbH & Co. KG)
+- Same notary, bulk filing
+
+**Resolution:**
+1. Count distinct HRB/HRA numbers
+2. Process each company as separate entry
+3. Check for parent/subsidiary relationships
+4. Document relationships in notes
+5. Ensure all companies marked as processed
+
+**Best Practice:** Process in logical order - parent before subsidiaries
+
+---
+
+## Phase 2: Search & Identification Issues
+
+### EC007: Search System Timeout
+**Severity:** 🟡 WARNING
+
+**Scenario:**
+- Search takes forever or system freezes
+- "Too many results" error message
+- Searched very common term (GmbH, Verwaltungsgesellschaft alone)
+
+**Resolution:**
+<Steps>
+  <Step title="Cancel Search">
+    Stop button or ESC key, wait for confirmation
+  </Step>
+  <Step title="Refine Query">
+    Add more specific terms, remove very common words
+
+    Instead of "Müller Verwaltungsgesellschaft GmbH"
+    Try: "Müller" + address
+  </Step>
+  <Step title="Switch Mode">
+    Change from "Ähnlich" to "Genau" (more restrictive)
+  </Step>
+  <Step title="Add Filters">
+    Include address, postal code, date range if available
+  </Step>
+</Steps>
+
+**Prevention:**
+- Never search single common words alone
+- Always include 2-3 distinctive terms
+- Start specific, broaden only if no results
+
+---
+
+### EC009: Typosquatting - Similar Names
+**Severity:** 🟡 WARNING
+
+**Scenario:**
+- New company name extremely similar to existing one
+- Examples: "Müller GmbH" vs "Mueller GmbH", "GlobalTech" vs "GlobalTeck"
+- Same industry, nearby address
+
+**Resolution:**
+1. Verify exact spelling in PDF
+2. Document existing similar entry (screenshot details)
+3. Compare: Same directors? Same address? Same industry?
+4. Assess legitimacy:
+   - Different address + industry = probably fine
+   - Same address + directors = likely related/legitimate
+   - Same industry + similar to famous company = 🚩 FLAG
+
+<Warning>
+**Red Flags:**
+- Similar name to DAX-listed company
+- Famous brand with slight variation
+- Umlaut substitution of well-known name
+- Same industry + city + similar name = high risk
+</Warning>
+
+---
+
+## Phase 3: Company Name Processing
+
+### EC013: Name Exceeds Character Limit
+**Severity:** 🟡 WARNING
+
+**Scenario:**
+- Company name very long, system field has limit
+- Full name doesn't fit, truncation would lose meaning
+
+**Resolution:**
+1. Check exact character count
+2. Try different fields (Firmierung vs Kurzfirmierung)
+3. Abbreviation strategy (only with approval):
+   - Abbreviate middle words, keep first and last
+   - Keep legal form full (GmbH, not G.)
+   - Example: "Hamburger Import Export Handelsgesellschaft mbH" → "Hamburger Import Export GmbH"
+4. Document full name in Schlagwort
+5. Escalate for system fix if common
+
+**Never abbreviate without approval!**
+
+---
+
+### EC015: Name in Non-Latin Script
+**Severity:** 🟡 WARNING
+
+**Scenario:**
+- Company name includes Chinese, Arabic, Cyrillic, Japanese, Korean
+- Examples: "北京 Trading GmbH", "Москва Services GmbH"
+
+**Resolution:**
+1. **Verify system Unicode support** (test paste in search first)
+2. Copy-paste EXACTLY from PDF
+3. If system accepts: Enter as-is, test search immediately
+4. If system rejects:
+   - 🔴 **CRITICAL TECHNICAL ISSUE**
+   - Document the name, screenshot PDF
+   - **FLAG FOR IT SUPPORT**
+5. Alphasort: Use Latin portion if any ("Trading" from "北京 Trading")
+
+<Note>
+**Technical Requirements:**
+- Database: UTF-8 encoding
+- Input fields: Unicode support
+- Search: Multi-script capable
+- System should support \xC0-\uFFFF range
+</Note>
+
+---
+
+### EC018: Umlauts and Special Characters
+**Severity:** 🟢 INFO
+
+**Scenario:**
+- Name contains ä, ö, ü, ß
+- Question: "Müller" or "Mueller"?
+
+<Warning>
+**CRITICAL RULE:** ALWAYS use exact spelling from PDF
+
+- PDF says "Müller" → Enter "Müller"
+- PDF says "Mueller" → Enter "Mueller"
+- **They are different legal entities!**
+</Warning>
+
+**Never substitute:**
+- ❌ Don't change ü → ue
+- ❌ Don't change ß → ss
+- ❌ Don't remove umlauts
+
+If system doesn't support German characters = 🔴 CRITICAL SYSTEM ISSUE
+
+---
+
+## Phase 4: Address Validation
+
+### EC020: P.O. Box as Primary Address
+**Severity:** 🔴 CRITICAL
+
+**Scenario:**
+- Address shows "Postfach" or "P.O. Box"
+- No street address provided
+
+<Warning>
+**This is illegal!** P.O. Boxes CANNOT be used as official business address in Germany.
+</Warning>
+
+**Resolution:**
+1. Verify PDF - is there a street address anywhere?
+2. Look for "Geschäftsanschrift" vs "Postanschrift"
+3. If only P.O. Box:
+   - **FLAG FOR SUPERVISOR IMMEDIATELY**
+   - May be document error
+   - Cannot proceed without physical address
+4. Check Bundesanzeiger for street address
+
+**Do NOT enter P.O. Box as official address!**
+
+---
+
+### EC021: Virtual Office Address
+**Severity:** 🟡 WARNING
+
+**Scenario:**
+- Address is known virtual office provider (WeWork, Regus, Business Center)
+- Multiple companies at exact same address
+
+**Resolution:**
+1. Virtual offices ARE legal in Germany if:
+   - Real physical office space
+   - Not just a postbox
+   - Can receive mail
+   - Possible to work there
+2. Process normally - enter address exactly as shown
+3. Note in internal comments if desired
+4. Red flags (escalate if seen):
+   - Obviously residential address
+   - P.O. Box only
+   - Suspicious pattern (100+ companies at tiny address)
+
+---
+
+### EC023: Address Not Yet in System
+**Severity:** 🟡 WARNING
+
+**Scenario:**
+- Address validation fails, PLZ dropdown shows no match
+- System: "Address nicht gefunden"
+- Very new building or new street
+
+**Resolution:**
+1. Verify address is correct in PDF
+2. External verification:
+   - Google Maps: Does address exist?
+   - Deutsche Post website: PLZ lookup
+   - OpenStreetMap: Verify street
+3. If address is real but not in system:
+   - Try manual entry, override validation if system allows
+   - Document: "New address, not in system database"
+4. If system blocks: **FLAG FOR IT SUPPORT**, request address database update
+
+---
+
+## Phase 5: Person/Director Data
+
+### EC028: Person Under 18 Years Old
+**Severity:** 🔴 CRITICAL
+
+**Scenario:**
+- Geburtsdatum indicates person is under 18
+- Minor listed as Geschäftsführer
+
+<Warning>
+**This is illegal!** Minimum age: 18 years for Geschäftsführer.
+</Warning>
+
+**Resolution:**
+1. 🔴 STOP - Cannot proceed
+2. Double-check PDF birth date (typo? 1988 vs 2008?)
+3. If definitely under 18:
+   - **Do NOT process**
+   - **FLAG FOR SUPERVISOR IMMEDIATELY**
+   - This may be PDF error, Amtsgericht error, or fraud attempt
+4. Check Bundesanzeiger for correct birth date
+
+---
+
+### EC030: Mononym - Single Name Only
+**Severity:** 🟡 WARNING
+
+**Scenario:**
+- Person has only one name (no surname OR no given name)
+- Examples: Indonesian names ("Suharto"), single-word names
+- Cultural naming conventions (Indonesia, Tibet, Myanmar)
+
+**Resolution:**
+1. Verify it's truly one name (check passport reference if mentioned)
+2. System field allocation:
+   - **Option A:** Put entire name in Nachname, Vorname blank/"-"
+   - **Option B:** Put entire name in Vorname field
+   - **Check internal guidelines** for standard
+3. Mononyms typically foreign → Use Foreign name rules
+4. Document: "Person has mononym (single name)"
+
+**Escalation:** Medium - need guidance on field allocation
+
+---
+
+### EC031: Academic / Noble Titles
+**Severity:** 🟢 INFO
+
+**Scenario:**
+- Name includes "Dr.", "Prof.", "Graf", "von", "Baron"
+
+<Tabs>
+  <Tab title="Academic Titles">
+    **Dr., Prof. - Usually NOT part of legal name**
+
+    **Action:** OMIT from name fields
+
+    "Dr. Hans Müller" → Enter as "Hans Müller"
+
+    Use separate "Titel" field if available
+  </Tab>
+  <Tab title="Noble Titles">
+    **von, zu, Graf, Baron - ARE part of legal name in Germany**
+
+    **Action:** INCLUDE as part of Nachname
+
+    "Hans Graf von Musterberg" →
+    - Vorname: "Hans"
+    - Nachname: "Graf von Musterberg"
+  </Tab>
+</Tabs>
+
+---
+
+### EC034: Gender Change / Name Change
+**Severity:** 🟡 WARNING
+
+**Scenario:**
+- Person found with different name but same DoB + Geburtsort
+- May be due to gender transition, marriage, legal name change
+
+**Resolution:**
+1. Verify identity (same DoB + Geburtsort = likely same person)
+2. **Use NEW name from PDF** (current legal name)
+3. System handling:
+   - Create new entry OR update existing (check guidelines)
+   - Note: "Name changed from [old name]"
+4. **Privacy:** Gender transitions especially sensitive, minimal documentation
+5. Assign to company using current name
+
+<Note>
+Germany's new self-determination law (Aug 2024) makes name/gender changes easier. Expect more cases.
+</Note>
+
+---
+
+### EC035: Deceased Person Listed
+**Severity:** 🔴 CRITICAL
+
+**Scenario:**
+- Database shows person as "verstorben" (deceased)
+- But listed as current Geschäftsführer in new entry
+
+<Warning>
+**Legal impossibility!** Deceased persons cannot be directors.
+</Warning>
+
+**Resolution:**
+1. 🔴 STOP - Cannot proceed
+2. Verify: Same person? Check DoB carefully
+3. Check PDF date vs death date:
+   - If BEFORE death: May be legitimate (historical)
+   - If AFTER death: **ERROR**
+4. **FLAG FOR SUPERVISOR IMMEDIATELY** if confirmed
+
+**Possible scenarios:**
+- Different person, same name
+- Database error
+- Document fraud
+
+---
+
+## Phase 6: Legal Representation
+
+### EC041: No Matching Function Code
+**Severity:** 🟡 WARNING
+
+**Scenario:**
+- Representation authority doesn't fit Code 24 or 8
+- Unusual authority structure, hybrid or conditional rules
+
+**Resolution:**
+1. Try to map to closest:
+   - Acts alone most of time → Code 24
+   - Usually needs another director → Code 8
+2. Check for "Other" option (Code 99 "Sonstige")
+3. Document actual rules in notes/comments
+4. **FLAG FOR SUPERVISOR** - may need new code created
+5. Use same code for all directors, document decision
+
+---
+
+### EC043: Conditional Representation
+**Severity:** 🟡 WARNING
+
+**Scenario:**
+- Representation authority is conditional
+- Examples: "Director A for German matters, Director B for international"
+- Subject matter limitations
+
+**Resolution:**
+1. Determine if internal vs external restriction
+2. Map to function code (choose closest match)
+3. **CRITICAL:** Document all conditions in notes
+4. Copy verbatim from PDF
+5. Flag if complex conditional structures
+
+<Note>
+German law allows limited representation authority if registered. Must be clearly documented in Handelsregister.
+</Note>
+
+---
+
+## Phase 7-14: Additional Critical Cases
+
+### EC046: Registration Date in Future
+**Severity:** 🔴 CRITICAL
+
+Tag der Eintragung shows future date - likely typo, escalate immediately.
+
+---
+
+### EC051: Capital in Foreign Currency
+**Severity:** 🟡 WARNING
+
+Convert to EUR using date-specific rate, document source and conversion.
+
+---
+
+### EC056: Illegal/Controversial Business Purpose
+**Severity:** 🟡 WARNING
+
+If in official PDF from Amtsgericht, already approved. Process normally, only escalate if suspected fraud.
+
+---
+
+### EC061: System Crash Mid-Entry
+**Severity:** 🔴 CRITICAL
+
+Verify last entry saved correctly after restoration. May need to redo last entry.
+
+---
+
+### EC068: Obvious Typo in Official Document
+**Severity:** 🟡 WARNING
+
+Enter exactly as shown, document suspected typo, check Bundesanzeiger for clarification.
+
+---
+
+### EC078: Sanctioned Individual/Country
+**Severity:** 🔴 CRITICAL
+
+**FLAG FOR COMPLIANCE IMMEDIATELY.** Do not proceed without clearance.
+
+---
+
+### EC079: Politically Exposed Person (PEP)
+**Severity:** 🟡 WARNING
+
+Flag for compliance review/KYC, but generally processable.
+
+---
+
+### EC084: Court Identifier Collision
+**Severity:** 🟡 WARNING
+
+HRB numbers only unique when paired with court. Example: Hamburg HRB 12345 ≠ Berlin HRB 12345. Always include court name with identifier.
+
+---
+
+## Summary: When to Escalate
+
+<CardGroup cols={3}>
+  <Card title="🔴 Immediate" icon="circle-exclamation">
+    - Person under 18
+    - Deceased person
+    - P.O. Box only address
+    - Sanctioned individual
+    - System-wide failures
+    - Legal incapacity
+  </Card>
+  <Card title="🟡 Soon" icon="triangle-exclamation">
+    - Unclear function code
+    - Complex conditional authority
+    - Typosquatting concerns
+    - Virtual office red flags
+    - Name changes
+    - Missing data
+  </Card>
+  <Card title="🟢 Informational" icon="circle-info">
+    - Noble titles
+    - Mononyms
+    - Non-Latin scripts (if system supports)
+    - Multiple companies same address
+    - Academic titles
+    - Foreign residents
+  </Card>
+</CardGroup>
+
+---
+
+## Additional Resources
+
+<CardGroup cols={3}>
+  <Card title="User Manual" icon="book" href="/ihk/neueintragungen/user-manual">
+    Complete processing guide
+  </Card>
+  <Card title="Field Mapping" icon="table" href="/ihk/neueintragungen/field-mapping">
+    PDF to EVA field reference
+  </Card>
+  <Card title="Back to Overview" icon="arrow-left" href="/ihk/neueintragungen/overview">
+    Return to process overview
+  </Card>
+</CardGroup>
+
+---
+
+**Document Version:** 1.0 | **Date:** 2025-11-14
+**Coverage:** 80+ edge cases across 14 processing phases
+
+For complete edge case details, see source documentation or contact supervisor.
