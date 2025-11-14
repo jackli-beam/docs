@@ -11,6 +11,17 @@
   "navigation": {
     "tabs": [
       {
+        "tab": "IHK Process",
+        "groups": [
+          {
+            "group": "Documentation",
+            "pages": [
+              "ihk/overview"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "Guides",
         "groups": [
           {
