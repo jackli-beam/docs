@@ -1,97 +1,197 @@
 ---
-title: "Introduction"
-description: "Welcome to Beam AI Documentation - Test Update"
+title: "Creditreform IHK Process Documentation"
+description: "Comprehensive documentation for IHK Handelsregister automation - Neueintragungen, Veränderungen, and Löschungen processes"
 ---
 
-## Setting up
+## Welcome
 
-Get your documentation site up and running in minutes.
+This documentation site contains comprehensive guides for processing IHK (Industrie- und Handelskammer) Handelsregister entries in the EVA system. Created following the November 11, 2025 workshop with Creditreform Hamburg.
+
+<Note>
+  **Documentation Status:** Phase 1 Complete - Neueintragungen (New Registrations) fully documented in English, German, and Chinese.
+</Note>
+
+## Quick Start
+
+Begin with the process documentation that matches your workflow.
 
 <Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
+  title="IHK Process Overview"
+  icon="building"
+  href="/ihk/overview"
   horizontal
 >
-  Follow our three step quickstart guide.
+  Understand the complete IHK workflow and all 3 process types.
 </Card>
 
-## Make it yours
+## Process Documentation
 
-Design a docs site that looks great and empowers your users.
+Detailed guides for each IHK registration type.
 
-<Columns cols={2}>
+<Columns cols={3}>
   <Card
-    title="Edit locally"
+    title="Neueintragungen"
+    icon="file-circle-plus"
+    href="/ihk/neueintragungen/overview"
+  >
+    **New Registrations** - Complete EVA system workflow for processing new company registrations (~50% of daily volume).
+  </Card>
+  <Card
+    title="Veränderungen"
     icon="pen-to-square"
-    href="/development"
+    href="/ihk/veraenderungen/overview"
   >
-    Edit your docs locally and preview them in real time.
+    **Changes** - Process for handling company modifications and updates (coming soon).
   </Card>
   <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
+    title="Löschungen"
+    icon="trash"
+    href="/ihk/loeschungen/overview"
   >
-    Customize the design and colors of your site to match your brand.
-  </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
-  </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
+    **Deletions** - Workflow for processing company deletions and closures (coming soon).
   </Card>
 </Columns>
 
-## Create beautiful pages
+## Neueintragungen Documentation
 
-Everything you need to create world-class documentation.
+Comprehensive guides for processing new company registrations.
 
 <Columns cols={2}>
   <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
+    title="User Manual"
+    icon="book-open"
+    href="/ihk/neueintragungen/user-manual"
   >
-    Use MDX to style your docs pages.
+    **Step-by-step guide** with 8-phase workflow, troubleshooting, and quick reference checklists.
   </Card>
   <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
+    title="Field Mapping"
+    icon="table-cells"
+    href="/ihk/neueintragungen/field-mapping"
   >
-    Add sample code to demonstrate how to use your product.
+    **PDF → EVA mapping** for all sections with critical rules and automation insights.
   </Card>
   <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
+    title="Edge Cases"
+    icon="triangle-exclamation"
+    href="/ihk/neueintragungen/edge-cases"
   >
-    Display images and other media.
+    **85+ edge cases** across 14 categories with resolution strategies and severity levels.
   </Card>
   <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
+    title="DE/ZH Translations"
+    icon="language"
+    href="/de/ihk/neueintragungen/user-manual"
   >
-    Write once and reuse across your docs.
+    **Multi-language support** - Full documentation available in English, German, and Chinese.
   </Card>
 </Columns>
 
-## Need inspiration?
+## Key Features
 
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+What makes this documentation comprehensive.
+
+<CardGroup cols={2}>
+  <Card title="📊 5,200+ Lines" icon="file-lines">
+    Complete documentation covering every aspect of the IHK process
+  </Card>
+  <Card title="🌍 Multilingual" icon="globe">
+    English, German (Deutsch), and Chinese (中文) versions
+  </Card>
+  <Card title="⚠️ 85+ Edge Cases" icon="list-check">
+    Comprehensive edge case library with resolution strategies
+  </Card>
+  <Card title="✅ Quick References" icon="clipboard-check">
+    4 checklists for fast validation and quality assurance
+  </Card>
+  <Card title="📖 50+ Terms" icon="book">
+    Complete glossary of German legal and technical terminology
+  </Card>
+  <Card title="🎯 Severity Levels" icon="traffic-light">
+    Critical 🔴, Warning 🟡, Info 🟢 classification system
+  </Card>
+</CardGroup>
+
+## Documentation Scope
+
+<Accordion title="Phase 1: Neueintragungen (Complete)">
+  - ✅ **EVA System User Manual** (1,785 lines)
+    - 8-phase workflow from PDF analysis to final review
+    - 10 major edge case scenarios
+    - Troubleshooting guide with 6 common issues
+    - 10 common mistakes to avoid
+    - 4 quick reference checklists
+
+  - ✅ **Field Mapping Documentation** (511 lines)
+    - Section-by-section PDF → EVA mapping
+    - 8 main sections with Hamburg-specific rules
+    - Automation potential assessment
+
+  - ✅ **Comprehensive Edge Cases** (2,900+ lines)
+    - 85+ scenarios across 14 categories
+    - Detection, resolution, and escalation criteria
+    - Research-based best practices
+
+  - ✅ **Multi-language Support**
+    - Complete translations in DE and ZH
+</Accordion>
+
+<Accordion title="Phase 2: Veränderungen (Planned)">
+  - ⏳ Process workflow documentation
+  - ⏳ Field mapping for change types
+  - ⏳ Edge cases specific to modifications
+  - ⏳ Multi-language versions
+</Accordion>
+
+<Accordion title="Phase 3: Löschungen (Planned)">
+  - ⏳ Deletion process workflow
+  - ⏳ Validation and approval steps
+  - ⏳ Edge cases for closures
+  - ⏳ Multi-language versions
+</Accordion>
+
+## Process Statistics
+
+Key insights from workshop analysis.
+
+<Note>
+  **Daily Volume:** ~140 entries per day for Hamburg
+  **Process Priority:** 1. Abmeldungen (fastest) → 2. Anmeldungen (most complex) → 3. Ummeldungen
+  **Search-First Critical:** ~50% of Neueintragungen already exist in system
+  **Sequential Processing:** Must complete one date before moving to next
+</Note>
+
+## Workshop Reference
+
+This documentation is based on comprehensive workshop sessions:
+
+- **Workshop Date:** November 11, 2025
+- **Participants:** Creditreform team (Mrs. Baddaje, Mr. Cordts) + Beam AI team
+- **Materials:** Live process demonstrations, screen recordings, field requirements analysis
+- **Output:** Complete process documentation with edge cases and automation feasibility assessment
+
+## Next Steps
+
+<Steps>
+  <Step title="Explore Neueintragungen">
+    Start with the [IHK Overview](/ihk/overview) to understand all process types, then dive into [Neueintragungen User Manual](/ihk/neueintragungen/user-manual).
+  </Step>
+  <Step title="Reference Edge Cases">
+    Bookmark the [Edge Cases guide](/ihk/neueintragungen/edge-cases) for quick reference during processing.
+  </Step>
+  <Step title="Use Field Mapping">
+    Keep [Field Mapping](/ihk/neueintragungen/field-mapping) handy for PDF → EVA conversions.
+  </Step>
+  <Step title="Choose Your Language">
+    Select your preferred language version: [English](/ihk/neueintragungen/user-manual) | [Deutsch](/de/ihk/neueintragungen/user-manual) | [中文](/zh/ihk/neueintragungen/user-manual)
+  </Step>
+</Steps>
+
+---
+
+<Info>
+  **Project:** Creditreform IHK Automation
+  **Client:** Creditreform Hamburg
+  **Developed by:** Beam AI Solutions Team
+  **Last Updated:** November 2025
+</Info>
